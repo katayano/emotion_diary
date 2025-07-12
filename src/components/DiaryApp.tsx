@@ -10,6 +10,7 @@ import DiaryDetail from './DiaryDetail';
 import DiaryCard from './DiaryCard';
 import SearchBar from './SearchBar';
 import ThemeToggle from './ThemeToggle';
+import StatsDashboard from './StatsDashboard';
 
 export default function DiaryApp() {
     const [entries, setEntries] = useState<DiaryEntry[]>([]);
@@ -17,6 +18,7 @@ export default function DiaryApp() {
     const [searchFilters, setSearchFilters] = useState<SearchFilters>(defaultFilters);
     const [showForm, setShowForm] = useState(false);
     const [selectedEntry, setSelectedEntry] = useState<DiaryEntry | null>(null);
+    const [showStats, setShowStats] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     // コンポーネントマウント時にデータを読み込み
@@ -82,6 +84,15 @@ export default function DiaryApp() {
         );
     }
 
+    if (showStats) {
+        return (
+            <StatsDashboard
+                entries={entries}
+                onBack={() => setShowStats(false)}
+            />
+        );
+    }
+
     if (showForm) {
         return (
             <DiaryForm
@@ -103,6 +114,13 @@ export default function DiaryApp() {
                     </div>
                     <div className="flex items-center space-x-4">
                         <ThemeToggle />
+                        <button
+                            onClick={() => setShowStats(true)}
+                            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors flex items-center space-x-2"
+                        >
+                            <span>📊</span>
+                            <span>統計</span>
+                        </button>
                         <button
                             onClick={() => setShowForm(true)}
                             className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
