@@ -1,4 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Emotion Diary
+
+感情日記アプリケーション - 日々の日記を記録し、書かれた内容から感情を自動分析して一緒に記録・振り返ることができるNext.jsアプリケーションです。
+
+## 主な機能
+
+- 📝 **日記記録**: 日々の出来事や思いを自由に記録
+- 🧠 **感情分析**: 記載された文章から感情を自動分析
+- 📊 **感情トレンド**: 時系列での感情変化を可視化
+- 🔍 **振り返り機能**: 過去の過去の日記と感情データの検索・閲覧
+- 📱 **レスポンシブデザイン**: モバイル・デスクトップ対応
+
+## 技術スタック
+
+- **フレームワーク**: Next.js 15+ (App Router)
+- **言語**: TypeScript
+- **スタイリング**: Tailwind CSS
+- **リンティング**: ESLint
+- **パッケージマネージャー**: npm
+
+This project was bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
@@ -16,7 +36,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
