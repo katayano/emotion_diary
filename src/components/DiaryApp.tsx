@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DiaryEntry } from '@/types/diary';
+import { saveDiaryEntries, loadDiaryEntries } from '@/lib/localStorage';
 import DiaryForm from './DiaryForm';
 import DiaryCard from './DiaryCard';
 import DiaryDetail from './DiaryDetail';
@@ -10,6 +11,21 @@ export default function DiaryApp() {
     const [entries, setEntries] = useState<DiaryEntry[]>([]);
     const [showForm, setShowForm] = useState(false);
     const [selectedEntry, setSelectedEntry] = useState<DiaryEntry | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    // コンポーネントマウント時にデータを読み込み
+    useEffect(() => {
+        const savedEntries = loadDiaryEntries();
+        setEntries(savedEntries);
+        setIsLoading(false);
+    }, []);
+
+    // entriesが変更されるたびにlocalStorageに保存
+    useEffect(() => {
+        if (!isLoading) {
+            saveDiaryEntries(entries);
+        }
+    }, [entries, isLoading]);
 
     const handleSaveEntry = (entryData: Omit<DiaryEntry, 'id' | 'createdAt' | 'updatedAt'>) => {
         const newEntry: DiaryEntry = {
@@ -27,6 +43,17 @@ export default function DiaryApp() {
         setEntries(prev => prev.filter(entry => entry.id !== id));
         setSelectedEntry(null);
     };
+
+    if (isLoading) {
+        return (
+            <div className="max-w-4xl mx-auto p-6">
+                <div className="flex justify-center items-center py-12">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                    <span className="ml-3 text-gray-600">日記を読み込み中...</span>
+                </div>
+            </div>
+        );
+    }
 
     if (selectedEntry) {
         return (
